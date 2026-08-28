@@ -4,8 +4,18 @@ const path = require('path');
 const fs = require('fs');
 const { randomUUID: uuidv4 } = require('crypto');
 
-const UPLOAD_DIR = path.join(__dirname, '../../uploads');
-if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+// Vercel serverless requires using /tmp for file writes, local dev uses '../../uploads'
+const UPLOAD_DIR = process.env.VERCEL
+  ? '/tmp'
+  : path.join(__dirname, '../../uploads');
+
+if (!fs.existsSync(UPLOAD_DIR)) {
+  try {
+    fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+  } catch (err) {
+    console.error('Directory creation skipped:', err.message);
+  }
+}
 
 // Multer memory storage (we'll process with sharp then save)
 const storage = multer.memoryStorage();
