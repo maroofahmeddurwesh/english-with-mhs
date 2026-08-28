@@ -11,6 +11,9 @@ const pool = mysql2.createPool({
   queueLimit: 0,
   timezone: '+05:00',
   charset: 'utf8mb4',
+  ssl: {
+    rejectUnauthorized: false, // TiDB Cloud SSL connection fix
+  },
 });
 
 async function testConnection() {
