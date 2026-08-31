@@ -1,18 +1,4 @@
 {
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/server/server.js"
-    },
-    {
-      "source": "/uploads/(.*)",
-      "destination": "/server/uploads/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/client/dist/index.html"
-    }
-  ],
   "builds": [
     {
       "src": "server/server.js",
@@ -25,5 +11,12 @@
         "distDir": "dist"
       }
     }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/server/server.js" },
+    { "src": "/uploads/(.*)", "dest": "/server/uploads/$1" },
+    { "src": "/assets/(.*)", "dest": "/client/assets/$1" },
+    { "src": "/(.*\\.(ico|svg|png|jpg|jpeg|gif|css|js))", "dest": "/client/$1" },
+    { "src": "/(.*)", "dest": "/client/index.html" }
   ]
 }
