@@ -8,6 +8,9 @@ const { generalLimiter } = require('./middleware/rateLimiter');
 
 const app = express();
 
+// ── Trust Proxy for Vercel (fixes express-rate-limit) ─────────
+app.set('trust proxy', 1);
+
 // ── Security Middleware ───────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({

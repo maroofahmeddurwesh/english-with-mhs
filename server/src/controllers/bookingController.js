@@ -1,5 +1,5 @@
 const { pool } = require('../config/db');
-const { randomUUID: uuidv4 } = require('crypto');
+const crypto = require('crypto');
 
 function generateBookingRef() {
   return 'MHS-' + Math.floor(100000 + Math.random() * 900000);

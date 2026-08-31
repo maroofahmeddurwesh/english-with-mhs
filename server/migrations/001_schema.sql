@@ -181,12 +181,12 @@ VALUES
   (2, 'Meezan Bank',  'MUHAMMAD HUZAIFA SIDDIQUI', '01110115094958', 'PK66MEZN0001110115094958', 'Transfer exact amount via IBFT / Internet Banking to the above IBAN.', 2);
 
 -- ─── Seed: Sample Courses ─────────────────────────────────────
-INSERT IGNORE INTO courses (id, title, description, fee, duration, level, teacher_name, is_active)
+INSERT IGNORE INTO courses (id, title, description, fee, duration, level, teacher_name, is_active, image_url)
 VALUES
-  (1, 'Spoken English Fluency',       'Overcome hesitation, build confidence, and speak English naturally. Daily conversational practice, vocabulary drills, and real-world scenarios.', 10000.00, '4 Weeks', 'Beginner - Intermediate', 'Sir Muhammad Huzaifa Siddiqui', 1),
-  (2, 'IELTS Academic Masterclass',   'Complete preparation for IELTS Academic exam. Covers Reading, Listening, Writing (Task 1 & 2), and Speaking with official mock tests.', 15000.00,  '6 Weeks', 'Intermediate - Advanced',  'Sir Muhammad Huzaifa Siddiqui', 1),
-  (3, 'Business English & Communication', 'Professional email writing, interview preparation, presentation skills, and corporate communication for career growth.', 12000.00, '4 Weeks', 'Intermediate', 'Sir Muhammad Huzaifa Siddiqui', 1),
-  (4, 'Grammar & Writing Mechanics',  'Master English grammar rules, tenses, punctuation, and essay writing from scratch. Perfect for students and professionals alike.', 8000.00,  '4 Weeks', 'All Levels', 'Sir Muhammad Huzaifa Siddiqui', 1);
+  (1, 'Spoken English Fluency',       'Overcome hesitation, build confidence, and speak English naturally. Daily conversational practice, vocabulary drills, and real-world scenarios.', 10000.00, '4 Weeks', 'Beginner - Intermediate', 'Sir Muhammad Huzaifa Siddiqui', 1, '/course-1.jpg'),
+  (2, 'IELTS Academic Masterclass',   'Complete preparation for IELTS Academic exam. Covers Reading, Listening, Writing (Task 1 & 2), and Speaking with official mock tests.', 15000.00,  '6 Weeks', 'Intermediate - Advanced',  'Sir Muhammad Huzaifa Siddiqui', 1, '/course-2.jpg'),
+  (3, 'Business English & Communication', 'Professional email writing, interview preparation, presentation skills, and corporate communication for career growth.', 12000.00, '4 Weeks', 'Intermediate', 'Sir Muhammad Huzaifa Siddiqui', 1, '/course-3.jpg'),
+  (4, 'Grammar & Writing Mechanics',  'Master English grammar rules, tenses, punctuation, and essay writing from scratch. Perfect for students and professionals alike.', 8000.00,  '4 Weeks', 'All Levels', 'Sir Muhammad Huzaifa Siddiqui', 1, '/course-4.jpg');
 
 -- ─── Seed: Sample Slots ───────────────────────────────────────
 INSERT IGNORE INTO slots (course_id, days_of_week, start_time, end_time, batch_start_date, batch_end_date, max_capacity, booked_count, is_active)

@@ -1,9 +1,13 @@
 const mysql2 = require('mysql2/promise');
 
+const dbName = process.env.DATABASE_NAME && process.env.DATABASE_NAME !== 'sys' 
+  ? process.env.DATABASE_NAME 
+  : 'english_portal';
+
 const pool = mysql2.createPool({
   host: process.env.DATABASE_HOST || 'localhost',
   port: parseInt(process.env.DATABASE_PORT || '3306'),
-  database: process.env.DATABASE_NAME || 'english_portal',
+  database: dbName,
   user: process.env.DATABASE_USER || 'root',
   password: process.env.DATABASE_PASSWORD || '',
   ssl: (process.env.DATABASE_SSL === 'true' || (process.env.DATABASE_HOST && process.env.DATABASE_HOST.includes('tidbcloud.com'))) ? {

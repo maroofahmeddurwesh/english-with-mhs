@@ -6,26 +6,18 @@ const mysql2 = require('mysql2/promise');
 async function migrate() {
   // Connect WITHOUT specifying a database — we create it in the SQL file
   const conn = await mysql2.createConnection({
-    host: process.env.DATABASE_HOST || 'localhost',
-    port: parseInt(process.env.DATABASE_PORT || '3306'),
-    user: process.env.DATABASE_USER || 'root',
+    host:     process.env.DATABASE_HOST     || 'localhost',
+    port:     parseInt(process.env.DATABASE_PORT || '3306'),
+    user:     process.env.DATABASE_USER     || 'root',
     password: process.env.DATABASE_PASSWORD || '',
     multipleStatements: true,
     charset: 'utf8mb4',
-    ssl: {
-      rejectUnauthorized: false, // TiDB Cloud SSL connection fix
-    },
   });
 
   console.log('🔗 Connected to MySQL.');
 
   const sqlPath = path.join(__dirname, '../migrations/001_schema.sql');
-  let sql = fs.readFileSync(sqlPath, 'utf8');
-
-  // TiDB Cloud default database replacement (if needed)
-  if (process.env.DATABASE_NAME) {
-    sql = sql.replace(/`english_portal`/g, `\`${process.env.DATABASE_NAME}\``);
-  }
+  const sql = fs.readFileSync(sqlPath, 'utf8');
 
   console.log('⚙️  Running migration...');
   await conn.query(sql);

@@ -2,18 +2,15 @@ const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
-const { randomUUID: uuidv4 } = require('crypto');
+const crypto = require('crypto');
 
-// Vercel serverless requires using /tmp for file writes, local dev uses '../../uploads'
-const UPLOAD_DIR = process.env.VERCEL
-  ? '/tmp'
+const UPLOAD_DIR = process.env.NODE_ENV === 'production' 
+  ? '/tmp/uploads' 
   : path.join(__dirname, '../../uploads');
 
-if (!fs.existsSync(UPLOAD_DIR)) {
-  try {
+function ensureUploadDir() {
+  if (!fs.existsSync(UPLOAD_DIR)) {
     fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-  } catch (err) {
-    console.error('Directory creation skipped:', err.message);
   }
 }
 
@@ -39,7 +36,8 @@ const upload = multer({
 async function processReceiptImage(req, res, next) {
   if (!req.file) return next();
   try {
-    const filename = `receipt_${uuidv4()}.webp`;
+    ensureUploadDir();
+    const filename = `receipt_${crypto.randomUUID()}.webp`;
     const outputPath = path.join(UPLOAD_DIR, filename);
 
     await sharp(req.file.buffer)
@@ -58,7 +56,8 @@ async function processReceiptImage(req, res, next) {
 async function processCourseImage(req, res, next) {
   if (!req.file) return next();
   try {
-    const filename = `course_${uuidv4()}.webp`;
+    ensureUploadDir();
+    const filename = `course_${crypto.randomUUID()}.webp`;
     const outputPath = path.join(UPLOAD_DIR, filename);
 
     await sharp(req.file.buffer)
