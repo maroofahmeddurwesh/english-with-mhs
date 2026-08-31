@@ -13,6 +13,12 @@ exports.getCourses = async (req, res) => {
        GROUP BY c.id
        ORDER BY c.id ASC`
     );
+    
+    // TEMPORARY FIX: Always use local images until Cloudinary is fixed
+    courses.forEach(c => {
+      if (c.id <= 4) c.image_url = `/course-${c.id}.jpg`;
+    });
+
     return res.json({ success: true, data: { courses } });
   } catch (err) {
     console.error('getCourses error:', err);
@@ -31,7 +37,10 @@ exports.getCourse = async (req, res) => {
       [req.params.id]
     );
 
-    return res.json({ success: true, data: { course: courses[0], slots } });
+    const course = courses[0];
+    if (course.id <= 4) course.image_url = `/course-${course.id}.jpg`;
+
+    return res.json({ success: true, data: { course, slots } });
   } catch (err) {
     return res.status(500).json({ success: false, message: 'Failed to load course.' });
   }
