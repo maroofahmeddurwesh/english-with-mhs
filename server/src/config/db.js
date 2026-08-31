@@ -6,7 +6,7 @@ const pool = mysql2.createPool({
   database: process.env.DATABASE_NAME || 'english_portal',
   user: process.env.DATABASE_USER || 'root',
   password: process.env.DATABASE_PASSWORD || '',
-  ssl: process.env.DATABASE_HOST && process.env.DATABASE_HOST.includes('tidbcloud.com') ? {
+  ssl: (process.env.DATABASE_SSL === 'true' || (process.env.DATABASE_HOST && process.env.DATABASE_HOST.includes('tidbcloud.com'))) ? {
     minVersion: 'TLSv1.2',
     rejectUnauthorized: true
   } : undefined,
